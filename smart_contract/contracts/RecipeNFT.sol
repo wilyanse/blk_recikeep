@@ -63,6 +63,19 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
         return tokenIdToRecipe[tokenId];
     }
 
+    function getAllRecipeNamesAndImages() public view returns (string[] memory, string[] memory) {
+        uint256 totalRecipes = tokenCounter;
+        string[] memory recipeNames = new string[](totalRecipes);
+        string[] memory recipeImages = new string[](totalRecipes);
+
+        for (uint256 i = 0; i < totalRecipes; i++) {
+            recipeNames[i] = tokenIdToRecipe[i].name;
+            recipeImages[i] = tokenIdToRecipe[i].imageUrl;
+        }
+
+        return (recipeNames, recipeImages);
+    }
+
     function createListing(string[] memory _desiredIngredients, uint256 _maxSteps) public payable {
         require(msg.value > 0, "Payment must be greater than 0");
 
@@ -95,5 +108,9 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
 
         listing.fulfilled = true;
         payable(msg.sender).transfer(listing.payment);
+    }
+
+    function getAllListings() public view returns (Listing[] memory) {
+        return listings;
     }
 }
