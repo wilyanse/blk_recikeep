@@ -1,0 +1,9 @@
+{
+    "name": "Ginisang Corned Beef",
+    "description": "Savor the flavors of Ginisang Corned Beef Recipe. A delicious stir-fry dish with tender corned beef and savory ingredients. Get the recipe now and enjoy!",
+    "image": "https://images.aws.nestle.recipes/resized/d7e7bf512bf7d0f868377d5facea3ed0_nksb05s3-d03_7876_708_600.jpg",
+    "attributes": [
+        { "trait_type": "Ingredients", "value": "2 tbsp Vegetable Oil, 4 cloves Garlic, 1 pc Potato, 1 can Corned Beef, 1 pc Onion, 0.5 sachet MAGGI Magci Sarap 8g" },
+        { "trait_type": "Steps", "value": "Sauté garlic in oil until golden brown., Add potato and cook until light golden brown. Add corned beef., Add onion and season with MAGGI® MAGIC SARAP®. Transfer on a serving plate and serve." }
+    ]
+}

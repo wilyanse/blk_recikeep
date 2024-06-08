@@ -1,0 +1,9 @@
+{
+    "name": "Mung Bean Soup",
+    "description": "This recipe for Filipino-style monggo beans (aka mung bean soup) is so easy! Made into a creamy soup with coconut milk, ginger, garlic, and malunggay.",
+    "image": "https://pinchofyum.com/wp-content/uploads/2013/04/monggo-soup-3.jpg",
+    "attributes": [
+        { "trait_type": "Ingredients", "value": "2 cups dry monggo beans, 6 cups vegetable broth, 1 tablespoon oil, 1 onion, 2 cloves garlic, 1 tablespoons freshly grated ginger, 1 cup coconut milk, 1 bunch chopped or pulled malunggay leaves, salt to taste" },
+        { "trait_type": "Steps", "value": "Bring the broth to a boil in a large pot. Add the rinsed monggo beans and cook, uncovered, for about 40 minutes. I checked on mine every 10 minutes and added more water as needed (mine needed more water every time I checked it). You want the consistency to be like a very thick soup., Heat the oil in a large skillet over medium heat. Saute the onion, garlic, and ginger in the oil in a large nonstick skillet until soft and fragrant, about 3 minutes. Add to the monggo pot and allow the mixture to simmer together for a few minutes., Stir in the coconut milk and malunggay leaves. Remove the monggo pot from the heat. It just needs to be hot enough to very slightly wilt the leaves. Serve over rice or plain, like a soup." }
+    ]
+}
