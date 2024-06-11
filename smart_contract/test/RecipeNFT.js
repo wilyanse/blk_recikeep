@@ -2,12 +2,14 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
 describe("RecipeNFT", function () {
+  let RecipeNFT;
   let recipeNFT;
   let owner;
   let addr1;
   let addr2;
 
   beforeEach(async function () {
+
     [owner, addr1, addr2] = await ethers.getSigners();
     recipeNFT = await hre.ethers.deployContract("RecipeNFT");
     await recipeNFT.waitForDeployment();
@@ -18,8 +20,9 @@ describe("RecipeNFT", function () {
     const ingredients = ["Ingredient1", "Ingredient2"];
     const steps = ["Step1", "Step2"];
     const imageUrl = "http://example.com/image.png";
+    const tokenURI = "http://example.com/token-uri.json";
 
-    await recipeNFT.createRecipeNFT("Recipe1", ingredients, steps, imageUrl);
+    await recipeNFT.createRecipeNFT("Recipe1", ingredients, steps, imageUrl, tokenURI);
 
     const recipe = await recipeNFT.getRecipe(0);
     expect(recipe.name).to.equal("Recipe1");
@@ -32,8 +35,9 @@ describe("RecipeNFT", function () {
     const ingredients = ["Ingredient1", "Ingredient2"];
     const steps = ["Step1", "Step2"];
     const imageUrl = "http://example.com/image.png";
+    const tokenURI = "http://example.com/token-uri.json";
   
-    await recipeNFT.createRecipeNFT("Recipe1", ingredients, steps, imageUrl);
+    await recipeNFT.createRecipeNFT("Recipe1", ingredients, steps, imageUrl, tokenURI);
   
     // addr1 pays to view the recipe
     await recipeNFT.connect(addr1).payToViewRecipe(0, { value: ethers.parseEther("0.01") });
@@ -58,8 +62,9 @@ describe("RecipeNFT", function () {
     const ingredients = ["Ingredient1", "Ingredient2"];
     const steps = ["Step1", "Step2"];
     const imageUrl = "http://example.com/image.png";
+    const tokenURI = "http://example.com/token-uri.json";
 
-    await recipeNFT.createRecipeNFT("Recipe1", ingredients, steps, imageUrl);
+    await recipeNFT.createRecipeNFT("Recipe1", ingredients, steps, imageUrl, tokenURI);
 
     await recipeNFT.connect(addr2).fulfillListing(0, 0);
 

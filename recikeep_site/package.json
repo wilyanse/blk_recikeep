@@ -17,10 +17,5 @@
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  },
-  "dependencies": {
-    "@pinata/sdk": "^2.1.0",
-    "ipfs-http-client": "^60.0.1",
-    "kubo-rpc-client": "^4.1.1"
   }
 }
