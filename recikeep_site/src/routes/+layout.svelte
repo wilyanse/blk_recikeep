@@ -7,13 +7,21 @@
 
 	import RecipeModal from './recipeModal.svelte';
 	import CreateRecipeModal from './createRecipeModal.svelte';
+	import CreateListing from './createListing.svelte';
 
 	const modalRegistry: Record<string, ModalComponent> = {
 		// Set a unique modal ID, then pass the component reference
 		recipeModal: { ref: RecipeModal },
 		createRecipeModal: { ref: CreateRecipeModal },
+		createListing: { ref: CreateListing }
 		// ...
 	};
+
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	
+	import { storePopup } from '@skeletonlabs/skeleton';
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+			
 </script>
 <Modal components={modalRegistry} />
 <!-- App Shell -->

@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract RecipeNFT is ERC721URIStorage, Ownable {
     uint256 public tokenCounter;
     uint256 public viewPrice = 0.01 ether; // Set a price to view the recipe
+    uint256 public listingCounter;
 
     struct Recipe {
         string name;
@@ -16,6 +17,7 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
     }
 
     struct Listing {
+        uint256 id;
         address poster;
         string[] desiredIngredients;
         uint256 maxSteps;
@@ -25,22 +27,23 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
 
     mapping(uint256 => Recipe) public tokenIdToRecipe;
     mapping(uint256 => mapping(address => bool)) public hasPaidForViewing;
+    mapping(string => uint256) public nameToTokenId; // Mapping from recipe name to token ID
+    mapping(uint256 => uint256[]) public listingToRecipes;
     Listing[] public listings;
 
     constructor() ERC721("RecipeNFT", "RCP") Ownable(msg.sender) {
         tokenCounter = 0;
+        listingCounter = 0;
     }
 
     function createRecipeNFT(
         string memory _name,
         string[] memory _ingredients,
         string[] memory _steps,
-        string memory _imageUrl,
-        string memory _tokenURI
+        string memory _imageUrl
     ) public onlyOwner {
         uint256 newTokenId = tokenCounter;
         _safeMint(msg.sender, newTokenId);
-        _setTokenURI(newTokenId, _tokenURI);
 
         Recipe memory newRecipe = Recipe({
             name: _name,
@@ -50,12 +53,14 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
         });
 
         tokenIdToRecipe[newTokenId] = newRecipe;
+        nameToTokenId[_name] = newTokenId; // Store the mapping from name to token ID
         tokenCounter++;
     }
 
     function payToViewRecipe(uint256 tokenId) public payable {
         require(msg.value == viewPrice, "Incorrect price sent");
         hasPaidForViewing[tokenId][msg.sender] = true;
+        // TODO: pay owner for viewing recipe
     }
 
     function getRecipe(uint256 tokenId) public view returns (Recipe memory) {
@@ -76,41 +81,66 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
         return (recipeNames, recipeImages);
     }
 
+    function getTokenIdByName(string memory _name) public view returns (uint256) {
+        require(nameToTokenId[_name] != 0 || keccak256(abi.encodePacked(tokenIdToRecipe[0].name)) == keccak256(abi.encodePacked(_name)), "Recipe not found");
+        return nameToTokenId[_name];
+    }
+
     function createListing(string[] memory _desiredIngredients, uint256 _maxSteps) public payable {
         require(msg.value > 0, "Payment must be greater than 0");
 
         listings.push(Listing({
+            id: listingCounter,
             poster: msg.sender,
             desiredIngredients: _desiredIngredients,
             maxSteps: _maxSteps,
             payment: msg.value,
             fulfilled: false
         }));
+        
+        listingCounter++;
     }
 
-    function fulfillListing(uint256 listingId, uint256 recipeTokenId) public {
+    function suggestRecipe(uint256 listingId, uint256 recipeTokenId) public {
+        require(ownerOf(recipeTokenId) != listings[listingId].poster, "You cannot suggest a recipe for your own listing");
+        listingToRecipes[listingId].push(recipeTokenId);
+    }
+
+    function fulfillListing(uint256 listingId, uint256 fulfilledRecipeId) public {
         Listing storage listing = listings[listingId];
+        require(listing.poster == msg.sender, "Only the poster can fulfill the listing");
         require(!listing.fulfilled, "Listing already fulfilled");
-        Recipe memory recipe = tokenIdToRecipe[recipeTokenId];
 
-        // Check if the recipe matches the listing criteria
-        require(recipe.steps.length <= listing.maxSteps, "Recipe has too many steps");
-        for (uint256 i = 0; i < listing.desiredIngredients.length; i++) {
-            bool ingredientFound = false;
-            for (uint256 j = 0; j < recipe.ingredients.length; j++) {
-                if (keccak256(abi.encodePacked(recipe.ingredients[j])) == keccak256(abi.encodePacked(listing.desiredIngredients[i]))) {
-                    ingredientFound = true;
-                    break;
-                }
-            }
-            require(ingredientFound, "Recipe does not have all desired ingredients");
-        }
-
+        address recipeOwner = ownerOf(fulfilledRecipeId);
+        require(recipeOwner != address(0), "Recipe does not exist");
+        
+        deleteAllOtherRecipes(listingId, fulfilledRecipeId);
+        
         listing.fulfilled = true;
-        payable(msg.sender).transfer(listing.payment);
+        payable(recipeOwner).transfer(listing.payment);
+        // TODO: make poster able to view recipe
+    }
+
+    function deleteAllOtherRecipes(uint256 listingId, uint256 fulfilledRecipeId) private {
+        uint256[] storage recipeIds = listingToRecipes[listingId];
+        for (uint256 i = 0; i < recipeIds.length; i++) {
+            if (recipeIds[i] != fulfilledRecipeId) {
+                delete tokenIdToRecipe[recipeIds[i]];
+            }
+        }
+        delete listingToRecipes[listingId];
     }
 
     function getAllListings() public view returns (Listing[] memory) {
         return listings;
+    }
+
+    function getRecipesByListing(uint256 listingId) public view returns (Recipe[] memory) {
+        uint256[] storage recipeIds = listingToRecipes[listingId];
+        Recipe[] memory recipes = new Recipe[](recipeIds.length);
+        for (uint256 i = 0; i < recipeIds.length; i++) {
+            recipes[i] = tokenIdToRecipe[recipeIds[i]];
+        }
+        return recipes;
     }
 }
