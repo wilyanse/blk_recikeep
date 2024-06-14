@@ -41,7 +41,7 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
         string[] memory _ingredients,
         string[] memory _steps,
         string memory _imageUrl
-    ) public onlyOwner {
+    ) public {
         uint256 newTokenId = tokenCounter;
         _safeMint(msg.sender, newTokenId);
 
@@ -61,6 +61,8 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
         require(msg.value == viewPrice, "Incorrect price sent");
         hasPaidForViewing[tokenId][msg.sender] = true;
         // TODO: pay owner for viewing recipe
+        address recipeOwner = ownerOf(tokenId);
+        payable(recipeOwner).transfer(msg.value);
     }
 
     function getRecipe(uint256 tokenId) public view returns (Recipe memory) {
@@ -119,6 +121,7 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
         listing.fulfilled = true;
         payable(recipeOwner).transfer(listing.payment);
         // TODO: make poster able to view recipe
+        hasPaidForViewing[fulfilledRecipeId][msg.sender] = true;
     }
 
     function deleteAllOtherRecipes(uint256 listingId, uint256 fulfilledRecipeId) private {
@@ -142,5 +145,49 @@ contract RecipeNFT is ERC721URIStorage, Ownable {
             recipes[i] = tokenIdToRecipe[recipeIds[i]];
         }
         return recipes;
+    }
+
+        // New function to get recipes and listings owned by sender
+    function getOwnedRecipesAndListings() public view returns (Recipe[] memory, Listing[] memory) {
+        uint256 recipeCount = 0;
+        uint256 listingCount = 0;
+
+        // Count the number of recipes owned by the sender
+        for (uint256 i = 0; i < tokenCounter; i++) {
+            if (ownerOf(i) == msg.sender) {
+                recipeCount++;
+            }
+        }
+
+        // Count the number of listings posted by the sender
+        for (uint256 i = 0; i < listingCounter; i++) {
+            if (listings[i].poster == msg.sender) {
+                listingCount++;
+            }
+        }
+
+        // Create arrays to hold the results
+        Recipe[] memory ownedRecipes = new Recipe[](recipeCount);
+        Listing[] memory ownedListings = new Listing[](listingCount);
+
+        // Populate the arrays with the owned recipes and listings
+        uint256 recipeIndex = 0;
+        uint256 listingIndex = 0;
+
+        for (uint256 i = 0; i < tokenCounter; i++) {
+            if (ownerOf(i) == msg.sender) {
+                ownedRecipes[recipeIndex] = tokenIdToRecipe[i];
+                recipeIndex++;
+            }
+        }
+
+        for (uint256 i = 0; i < listingCounter; i++) {
+            if (listings[i].poster == msg.sender) {
+                ownedListings[listingIndex] = listings[i];
+                listingIndex++;
+            }
+        }
+
+        return (ownedRecipes, ownedListings);
     }
 }
