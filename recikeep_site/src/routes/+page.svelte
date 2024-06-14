@@ -15,15 +15,15 @@
 
     const initializeContract = async (signer: JsonRpcSigner) => {
         return new Contract(
-        "0xd5BA7c9afD3FdE1F8F62313C1c4304F3349782a3",
+        "0x7b8411Ea1b7ebEe476F6d55669df3A95A92a2227",
         ABI,
         signer
         );
     };
 </script>
   
-<div class="flex h-full flex-wrap flex-col">
-	<div class="mx-auto max-w-screen-xl px-4 py-8 text-center lg:py-16 w-full max-w-screen-xl">
+<div class="flex h-full flex-wrap flex-col space-y-10">
+	<div class="mx-auto px-4 py-8 text-center lg:py-16 w-full max-w-screen-xl bg-tertiary-500/75 rounded-lg">
 		<div class='flex space-x-2.5 justify-center'>
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
@@ -34,8 +34,8 @@
 		<p class="mb-6 justify-center italic">The blockchain DAPP that lets you monetize your cooking!</p>
 	</div>
 
-	<Accordion class="grid justify-items-center w-full mx-auto space-y-5">
-		<AccordionItem class="w-full max-w-screen-md">
+	<Accordion class="grid justify-items-center w-full max-w-screen-xl mx-auto space-y-5 bg-tertiary-500/40 py-10 rounded-lg">
+		<AccordionItem class="w-full max-w-screen-md bg-tertiary-500/40 rounded-lg">
 			<svelte:fragment slot="lead"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
 			  </svg>
@@ -57,7 +57,7 @@
 				</div>
 			</svelte:fragment>
 		</AccordionItem>
-		<AccordionItem class="w-full max-w-screen-md">
+		<AccordionItem class="w-full max-w-screen-md bg-tertiary-500/40 rounded-lg">
 			<svelte:fragment slot="lead"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
 			  </svg>
@@ -69,7 +69,7 @@
 				</div>
 			</svelte:fragment>
 		</AccordionItem>
-		<AccordionItem class="w-full max-w-screen-md">
+		<AccordionItem class="w-full max-w-screen-md bg-tertiary-500/40 rounded-lg">
 			<svelte:fragment slot="lead"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
 			  </svg>
@@ -91,7 +91,7 @@
 		</AccordionItem>
 	</Accordion>
 
-	<div class="mx-auto my-10 px-4 py-8 space-y-5 w-full max-w-screen-xl">
+	<div class="mx-auto my-10 px-4 py-8 space-y-5 w-full max-w-screen-xl bg-tertiary-500/80 rounded-lg">
 		<h2 class="h2 text-xl text-center">
 			What are you waiting for? Connect your wallet and let's get started!
 		</h2>

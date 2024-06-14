@@ -12,8 +12,8 @@
 
 	// Form Data
 	const formData = {
-		ingredients: ['What ingredients do you want to use?'],
-		steps: 5
+		ingredients: [''],
+		steps: 10,
 	};
 
 	function removeIngredient(index: number): void {
@@ -42,7 +42,7 @@
 		<header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header>
 		<article>{$modalStore[0].body ?? '(body missing)'}</article>
 		<!-- Enable for debugging: -->
-		<form class="modal-form {cForm}">
+		<form class="modal-form {cForm} bg-secondary-800/80 p-5 rounded-lg">
             <label class="label">
 				<div class="flex flex-row space-x-2">
 					<span class="h3 text-lg font-bold justify-center text-center">Ingredients</span>

@@ -14,7 +14,7 @@
 
     const initializeContract = async (signer: JsonRpcSigner) => {
       return new Contract(
-        "0xd5BA7c9afD3FdE1F8F62313C1c4304F3349782a3",
+        "0x7b8411Ea1b7ebEe476F6d55669df3A95A92a2227",
         ABI,
         signer
       );
@@ -162,42 +162,45 @@
      });
 </script>
   
-  <main class='flex flex-col items-center justify-center'>
-    <div class='py-30 max-w-6xl justify-items-center my-10 flex flex-col'>
-      <h1 class='text-4xl font-bold mb-8 justify-center h1 text-center'>Recipe Gallery</h1>
-      <button type="button" class="btn variant-filled mx-5 justify-items-center flex " on:click={createRecipeNFT}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-        </svg>        
-        <span>Create your own recipe!</span>
-      </button>
-    </div>
-    
-    <div>
-      <div class='grid  grid-cols-3 '>
-        {#if recipes.length > 0}
-            {#each recipes as recipe}
-              <div class="card mx-5 my-5 p-5">
-                  <header class="card-header text-center">
-                      <h3 class='h3 text-xl font-bold'>{recipe.name}</h3>
-                  </header>
-                  <section class="p-4">
-                      <img src={recipe.imageUrl} alt={recipe.name} class="w-full h-40 object-cover" />
-                  </section>
-                  <footer class="card-footer text-center">
-                      <button type="button" class="btn variant-filled mx-5 justify-items-center flex " on:click={viewRecipe(recipe.name, recipe.id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                        </svg>
-                            
-                        <span>View this recipe</span>
-                      </button>
-                  </footer>
-              </div>
-            {/each}
-        {:else}
-            <h1 class='text-xl font-bold mb-8 justify-center h1 text-center'>No recipes present. Start by sharing the first one yourself!</h1>
-        {/if}
+  <main class='flex flex-col items-center justify-center '>
+    <div class="rounded-lg bg-tertiary-500/90 w-full h-full max-w-screen-xl items-center flex flex-col">
+      <div class='py-30 max-w-6xl justify-items-center my-10 flex flex-col items-center'>
+        <h1 class='text-4xl font-bold mb-8 justify-center h1 text-center'>Recipe Gallery</h1>
+        <button type="button" class="btn variant-filled mx-5 justify-items-center flex max-w-lg" on:click={createRecipeNFT}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg>        
+          <span>Create your own recipe!</span>
+        </button>
+      </div>
+      
+      <div>
+        <div class='grid  grid-cols-3 '>
+          {#if recipes.length > 0}
+              {#each recipes as recipe}
+                <div class="card mx-5 my-5 p-5 bg-tertiary-500/90">
+                    <header class="card-header text-center">
+                        <h3 class='h3 text-xl font-bold'>{recipe.name}</h3>
+                    </header>
+                    <section class="p-4">
+                        <img src={recipe.imageUrl} alt={recipe.name} class="w-full h-40 object-cover" />
+                    </section>
+                    <footer class="card-footer text-center">
+                        <button type="button" class="btn variant-filled mx-5 justify-items-center flex " on:click={viewRecipe(recipe.name, recipe.id)}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                          </svg>
+                              
+                          <span>View this recipe</span>
+                        </button>
+                    </footer>
+                </div>
+              {/each}
+          {:else}
+              <h1 class='text-xl font-bold mb-8 justify-center h1 text-center'>No recipes present. Start by sharing the first one yourself!</h1>
+          {/if}
+        </div>
       </div>
     </div>
+    
   </main>

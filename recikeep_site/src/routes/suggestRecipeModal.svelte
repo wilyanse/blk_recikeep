@@ -28,9 +28,9 @@
 	<div class="modal-example-form {cBase}">
 		<header class={cHeader}>Suggest a recipe for this listing</header>
 		<article>Suggest a recipe from ones that you own!</article>
-		<ListBox class="border border-surface-500 p-4 rounded-container-token">
+		<ListBox class="border border-surface-500 p-4 rounded-container-token bg-secondary-800/80 p-5 rounded-lg">
             {#each $modalStore[0].meta.recipes as recipe}
-                <ListBoxItem bind:group={recipeName} name={recipe.name} value={recipe.name}>{recipe.name}</ListBoxItem>
+                <ListBoxItem bind:group={recipeName} name={recipe.name} value={recipe.name} class="bg-secondary-500/80 p-5 rounded-lg text-black">{recipe.name}</ListBoxItem>
             {/each}
 		</ListBox>
 		<!-- prettier-ignore -->

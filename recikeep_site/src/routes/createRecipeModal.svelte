@@ -12,10 +12,10 @@
 
 		// Form Data
 		const formData = {
-			name: 'What do you call this recipe?',
-			ingredients: ['What do you need to create this recipe?'],
-			steps: ['How do I remake this recipe?'],
-			url: 'Do you have a link to an image of the food?'
+			name: '',
+			ingredients: [''],
+			steps: [''],
+			url: ''
 		};
 
 		// We've created a custom submit function to pass the response and close the modal.
@@ -48,7 +48,7 @@
 			<header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header>
 			<article>{$modalStore[0].body ?? '(body missing)'}</article>
 			<!-- Enable for debugging: -->
-			<form class="modal-form {cForm}">
+			<form class="modal-form {cForm} bg-secondary-800/80 p-5 rounded-lg">
 				<label class="label">
 					<span class="h3 text-lg font-bold justify-center text-center">Recipe Name</span>
 					<input class="input" type="text" bind:value={formData.name} placeholder="What do you call this recipe?" />

@@ -23,11 +23,11 @@
  -->
 {#if $modalStore[0]}
 	<div class="modal-example-fullscreen {cBase} flex flex-col space-y-5 w-full py-10">
-		<div class="flex flex-col items-center space-y-4 overflow-y-auto overscroll-contain max-h-full w-full h-full">
+		<div class="flex flex-col items-center space-y-4 overflow-y-auto overscroll-contain max-h-full w-full h-full bg-primary-800/90 py-10 rounded-lg px-5 mx-5">
 			<h2 class="h2 text-4xl font-bold mb-4 justify-center text-center">{$modalStore[0].meta.name}</h2>
 			<div class="grid grid-cols-2 content-start space-x-5 w-full max-w-7xl">
 				<TreeView selection multiple>
-					<TreeViewItem name="medium" value="Ingredients" class="grid grid-col-1" spacing="space-y-1">
+					<TreeViewItem name="medium" value="Ingredients" class="grid grid-col-1 bg-secondary-600/100 text-black p-5 rounded-lg" spacing="space-y-1">
 						<svelte:fragment slot="lead">
 							<div class="flex flex-row space-x-4 mt-3 mx-3">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 my-1.5">
@@ -38,7 +38,7 @@
 						</svelte:fragment>
 						<svelte:fragment slot="children">
 							{#if $modalStore[0].meta.ingredients.length > 0}
-							<ul class='list'>
+							<ul class='list bg-secondary-700/100 p-5 rounded-lg'>
 								{#each $modalStore[0].meta.ingredients as ingredient}
 									<TreeViewItem name="Ingredients" value={ingredient}>
 										{ingredient}
@@ -48,7 +48,7 @@
 							{/if}
 						</svelte:fragment>
 					</TreeViewItem>
-					<TreeViewItem name="medium" value="Steps" class="flex flex-col place-content-center" spacing="space-y-1">
+					<TreeViewItem name="medium" value="Steps" class="flex flex-col place-content-center bg-secondary-600/100 text-black p-5 rounded-lg" spacing="space-y-1">
 						<svelte:fragment slot="lead">
 							<div class="flex flex-row space-x-4 mt-3 mx-3">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 my-1.5">
@@ -59,18 +59,18 @@
 						</svelte:fragment>
 						<svelte:fragment slot="children">
 							{#if $modalStore[0].meta.steps.length > 0}
-							<ul class='list'>
+							<ol class='list bg-secondary-700/100 p-5 rounded-lg'>
 								{#each $modalStore[0].meta.steps as step}
 									<TreeViewItem name="Steps" value={step}>
 										{step}
 									</TreeViewItem>
 								{/each}
-							</ul>
+							</ol>
 							{/if}
 						</svelte:fragment>
 					</TreeViewItem>
 				</TreeView>
-				<img src="{$modalStore[0].meta.recipe_img}" alt="{$modalStore[0].meta.name}" class="w-full aspect-square"/>
+				<img src="{$modalStore[0].meta.recipe_img}" alt="{$modalStore[0].meta.name}" class="w-full aspect-square rounded-lg"/>
 			</div>
 			
 		</div>
