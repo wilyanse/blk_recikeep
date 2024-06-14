@@ -13,9 +13,13 @@
 	// Form Data
 	const formData = {
 		ingredients: ['What ingredients do you want to use?'],
-		steps: 5,
-        payment: 'How much are you paying to get the recipe you want?'
+		steps: 5
 	};
+
+	function removeIngredient(index: number): void {
+		formData.ingredients.splice(index, 1);
+		formData.ingredients = [...formData.ingredients]; // Trigger reactivity
+	}
 
 	// We've created a custom submit function to pass the response and close the modal.
 	function onFormSubmit(): void {
@@ -40,20 +44,32 @@
 		<!-- Enable for debugging: -->
 		<form class="modal-form {cForm}">
             <label class="label">
-                <span>Ingredients</span>
-                {#each formData.ingredients as ingredient, index}
-                    <input class="input" type="text" bind:value={formData.ingredients[index]} placeholder='What ingredients do you want to use?' />
-                {/each}
-                <button on:click={() => formData.ingredients = [...formData.ingredients, '']}>Add Ingredient</button>
+				<div class="flex flex-row space-x-2">
+					<span class="h3 text-lg font-bold justify-center text-center">Ingredients</span>
+					<button on:click={() => formData.ingredients = [...formData.ingredients, '']}>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+							<path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+						  </svg>
+					</button>
+				</div>
+				<div class="overflow-y-scroll max-h-80">
+					{#each formData.ingredients as ingredient, index}
+						<div class="flex">
+							<input class="input" type="text" bind:value={formData.ingredients[index]} placeholder='What ingredients do you want to use?' />
+							<button type="button" on:click={() => removeIngredient(index)}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+							</svg>
+							</button>
+						</div>
+					{/each}
+				</div>
+
+
             </label>
             <label class="label">
-                <span>Steps</span>
+                <span class="h3 text-lg font-bold justify-center text-center">Max Steps</span>
                 <input class="input" type="text" bind:value={formData.steps} placeholder="5" />
             </label>
-            <label class="label">
-				<span>Payment in ETH</span>
-				<input class="input" type="text" bind:value={formData.payment} placeholder="How much are you paying to get the recipe you want?" />
-			</label>
 		</form>
         <!-- prettier-ignore -->
         <footer class="modal-footer {parent.regionFooter}">
